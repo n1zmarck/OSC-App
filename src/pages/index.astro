@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { App } from '../components/App';
+---
+
+<Layout title="VRC-Flow | Apple Liquid Glass VRChat OSC Node Router">
+  <main id="app-root" className="w-screen h-screen">
+    <App client:only="react" />
+  </main>
+</Layout>

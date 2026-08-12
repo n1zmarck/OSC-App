@@ -1,0 +1,23 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+}
+
+const { title = "VRC-Flow | VRChat OSC Node Router" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Visual Node-Based OSC Signal Processor & Router for VRChat using Astro & Tauri" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-[#090d16] text-slate-100 antialiased overflow-hidden select-none">
+    <slot />
+  </body>
+</html>

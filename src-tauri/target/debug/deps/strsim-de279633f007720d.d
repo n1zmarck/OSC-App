@@ -1,0 +1,7 @@
+h:\OSC App\src-tauri\target\debug\deps\strsim-de279633f007720d.d: C:\Users\maxph\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\strsim-0.11.1\src\lib.rs
+
+h:\OSC App\src-tauri\target\debug\deps\libstrsim-de279633f007720d.rlib: C:\Users\maxph\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\strsim-0.11.1\src\lib.rs
+
+h:\OSC App\src-tauri\target\debug\deps\libstrsim-de279633f007720d.rmeta: C:\Users\maxph\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\strsim-0.11.1\src\lib.rs
+
+C:\Users\maxph\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\strsim-0.11.1\src\lib.rs:

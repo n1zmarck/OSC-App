@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #090d16;
+    --bg-surface: rgba(15, 23, 42, 0.85);
+    --bg-node: #0f172a;
+    --bg-input: #090d16;
+    --border-glass: rgba(255, 255, 255, 0.18);
+    --border-node: rgba(255, 255, 255, 0.18);
+    --text-main: #f8fafc;
+    --accent-glow: rgba(56, 189, 248, 0.4);
+    
+    /* MD3 High-Contrast Tonal Colors */
+    --md3-float: #38bdf8;
+    --md3-bool: #34d399;
+    --md3-int: #c084fc;
+    --md3-string: #fbbf24;
+    --md3-vector: #fb7185;
+    --md3-custom: #a855f7;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Reset number input spin buttons across browsers */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+/* Dynamic Theme Schemes Definitions */
+.theme-cyberpunk {
+  --bg-primary: #090d16;
+  --bg-surface: rgba(15, 23, 42, 0.85);
+  --bg-node: #0f172a;
+  --bg-input: #090d16;
+  --border-glass: rgba(255, 255, 255, 0.18);
+  --border-node: rgba(255, 255, 255, 0.18);
+  --text-main: #f8fafc;
+  --accent-glow: rgba(56, 189, 248, 0.4);
+}
+
+.theme-oled {
+  --bg-primary: #000000;
+  --bg-surface: rgba(12, 12, 14, 0.95);
+  --bg-node: #08080a;
+  --bg-input: #000000;
+  --border-glass: rgba(255, 255, 255, 0.22);
+  --border-node: rgba(255, 255, 255, 0.25);
+  --text-main: #ffffff;
+  --accent-glow: rgba(52, 211, 153, 0.5);
+}
+
+.theme-amethyst {
+  --bg-primary: #0f0718;
+  --bg-surface: rgba(28, 12, 48, 0.88);
+  --bg-node: #160a29;
+  --bg-input: #0a0412;
+  --border-glass: rgba(192, 132, 252, 0.28);
+  --border-node: rgba(192, 132, 252, 0.32);
+  --text-main: #faf5ff;
+  --accent-glow: rgba(192, 132, 252, 0.5);
+}
+
+.theme-emerald {
+  --bg-primary: #04150e;
+  --bg-surface: rgba(6, 32, 22, 0.90);
+  --bg-node: #072b1c;
+  --bg-input: #020e09;
+  --border-glass: rgba(52, 211, 153, 0.28);
+  --border-node: rgba(52, 211, 153, 0.32);
+  --text-main: #f0fdf4;
+  --accent-glow: rgba(52, 211, 153, 0.5);
+}
+
+.theme-frost {
+  --bg-primary: #cbd5e1;
+  --bg-surface: rgba(248, 250, 252, 0.94);
+  --bg-node: #ffffff;
+  --bg-input: #f1f5f9;
+  --border-glass: rgba(15, 23, 42, 0.18);
+  --border-node: rgba(15, 23, 42, 0.22);
+  --text-main: #0f172a;
+  --accent-glow: rgba(37, 99, 235, 0.4);
+}
+
+/* Glass Panel & Node Components linked to Dynamic CSS Theme Variables */
+.glass-panel {
+  background: var(--bg-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-node {
+  background: var(--bg-node);
+  border: 1.5px solid var(--border-node);
+  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+  color: var(--text-main);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.3s ease;
+  transform: translateZ(0);
+}
+
+.glass-node:hover {
+  border-color: var(--accent-glow);
+  box-shadow: 0 14px 40px 0 rgba(0, 0, 0, 0.7), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.glass-node-selected {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 0 2px var(--accent-glow), 0 12px 40px rgba(0, 0, 0, 0.8) !important;
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border-glass);
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.glass-pill:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.glass-input {
+  background: var(--bg-input);
+  border: 1.5px solid var(--border-node);
+  color: var(--text-main);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+/* React Flow Visual Customizations & Easy Node Wiring Handles */
+.react-flow__handle {
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 9999px !important;
+  border: 2.5px solid #ffffff !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 15px currentColor !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+  z-index: 50 !important;
+  pointer-events: auto !important;
+  cursor: crosshair !important;
+}
+
+.react-flow__handle:hover {
+  transform: scale(1.4) !important;
+  box-shadow: 0 0 20px currentColor, 0 0 30px rgba(56, 189, 248, 0.8) !important;
+}
+
+/* Expanded hit target padding for node handles */
+.react-flow__handle::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 9999px;
+  background: transparent;
+  pointer-events: auto;
+}
+
+.handle-float { background: var(--md3-float) !important; color: var(--md3-float); }
+.handle-bool { background: var(--md3-bool) !important; color: var(--md3-bool); }
+.handle-int { background: var(--md3-int) !important; color: var(--md3-int); }
+.handle-string { background: var(--md3-string) !important; color: var(--md3-string); }
+.handle-vector { background: var(--md3-vector) !important; color: var(--md3-vector); }
+.handle-custom { background: var(--md3-custom) !important; color: var(--md3-custom); }
+
+.react-flow__edge-path {
+  stroke-width: 3;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+}
+
+.react-flow__controls {
+  background: var(--bg-node) !important;
+  border: 1.5px solid var(--border-node) !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  overflow: hidden;
+}
+
+.react-flow__controls-button {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border-glass) !important;
+  color: var(--text-main) !important;
+  fill: var(--text-main) !important;
+}
+
+.react-flow__controls-button:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #38bdf8 !important;
+  fill: #38bdf8 !important;
+}
+
+.react-flow__minimap {
+  background: var(--bg-input) !important;
+  border: 1.5px solid var(--border-node) !important;
+  border-radius: 1.25rem !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+}
