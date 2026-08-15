@@ -11,12 +11,7 @@ import {
 import '@xyflow/react/dist/style.css';
 
 import { useGraphStore } from '../stores/useGraphStore';
-import { InputNode } from './Nodes/InputNode';
-import { MathNode } from './Nodes/MathNode';
-import { ExpressionNode } from './Nodes/ExpressionNode';
-import { MacroNode } from './Nodes/MacroNode';
-import { OutputNode } from './Nodes/OutputNode';
-import { LogicNode } from './Nodes/LogicNode';
+import { nodeTypes as defaultNodeTypes } from '../modules/renderers';
 
 export const Canvas: React.FC = () => {
   const { 
@@ -34,14 +29,9 @@ export const Canvas: React.FC = () => {
 
   const nodeTypes: NodeTypes = useMemo(
     () => ({
-      inputNode: InputNode,
-      oscInNode: InputNode,
-      mathNode: MathNode,
-      expressionNode: ExpressionNode,
-      macroNode: MacroNode,
-      outputNode: OutputNode,
-      oscOutNode: OutputNode,
-      logicNode: LogicNode,
+      ...defaultNodeTypes,
+      oscInNode: defaultNodeTypes.inputNode,
+      oscOutNode: defaultNodeTypes.outputNode,
     }),
     []
   );

@@ -6,17 +6,18 @@ export interface ModuleHandleDef {
   id: string;
   name: string;
   type: SignalType;
-  direction: 'input' | 'output';
+  direction?: 'input' | 'output';
   defaultValue?: number | boolean | string | number[];
 }
 
 export interface ModuleParamDef {
   id: string;
   label: string;
-  type: 'range' | 'toggle' | 'select' | 'text';
+  type: 'range' | 'toggle' | 'select' | 'text' | 'number';
   default: number | boolean | string;
   min?: number;
   max?: number;
+  step?: number;
   options?: string[];
 }
 
@@ -28,6 +29,35 @@ export interface ModuleContext {
   params: Record<string, number | boolean | string>;
   outputs: Record<string, (val: number | boolean | string | number[]) => void>;
   log: (msg: string) => void;
+}
+
+export interface ModuleSpec {
+  id: string;
+  name: string;
+  category?: string;
+  description?: string;
+  author?: string;
+  version?: string;
+  color?: string;
+  icon?: string;
+  inputs: ModuleHandleDef[];
+  outputs: ModuleHandleDef[];
+  parameters?: ModuleParamDef[];
+  onInit?: (ctx: ModuleContext) => void;
+  onProcess: (ctx: ModuleContext) => void;
+  onConfigChange?: (ctx: ModuleContext) => void;
+  onDestroy?: (ctx: ModuleContext) => void;
+}
+
+// Unified Universal Module Creator Helper
+export function createModule(spec: ModuleSpec): ModuleSpec {
+  return {
+    category: 'Custom Modules',
+    version: '1.0.0',
+    color: 'purple',
+    icon: 'Box',
+    ...spec,
+  };
 }
 
 export abstract class VRCModule {

@@ -3,7 +3,7 @@ import { Handle, Position, NodeResizer } from '@xyflow/react';
 import { ChevronDown, ChevronUp, MoveDiagonal } from 'lucide-react';
 import { useGraphStore } from '../../stores/useGraphStore';
 import { type NodeColorVariant, VARIANT_STYLES, isCompactNode } from '../../utils/nodeUtils';
-import { MatcapShaderSurface } from '../Common/MatcapShaderSurface';
+import { MatcapShaderSurface } from '../../components/Common/MatcapShaderSurface';
 
 export interface HandleConfig {
   id: string;

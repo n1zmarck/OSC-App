@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Position, type NodeProps } from '@xyflow/react';
-import { GitBranch, ChevronDown } from 'lucide-react';
+import { GitBranch, ChevronDown, Zap } from 'lucide-react';
 import { useGraphStore } from '../../stores/useGraphStore';
 import { BaseNodeContainer } from './BaseNodeContainer';
 
@@ -11,8 +11,10 @@ export const LogicNode = memo(({ id, data, selected, height }: NodeProps) => {
   const threshold = data.threshold !== undefined ? Number(data.threshold) : 0.5;
   const lowerThreshold = data.lowerThreshold !== undefined ? Number(data.lowerThreshold) : 0.2;
   const operandB = data.operandB !== undefined ? Number(data.operandB) : 0.5;
+  const edgeMode = (data.edgeMode as string) || 'any';
+  const pulseDuration = data.pulseDuration !== undefined ? Number(data.pulseDuration) : 0.1;
 
-  const isUnaryGate = ['not', 'threshold'].includes(gateType);
+  const isUnaryGate = ['not', 'threshold', 'on_state_change'].includes(gateType);
 
   return (
     <BaseNodeContainer
@@ -21,9 +23,9 @@ export const LogicNode = memo(({ id, data, selected, height }: NodeProps) => {
       selected={selected}
       height={height}
       variant="amber"
-      icon={GitBranch}
-      title={data.label as string || 'Logic Gate'}
-      subtitle={`${gateType.toUpperCase()} gate`}
+      icon={gateType === 'on_state_change' ? Zap : GitBranch}
+      title={data.label as string || (gateType === 'on_state_change' ? 'On State Change' : 'Logic Gate')}
+      subtitle={`${gateType.replace(/_/g, ' ').toUpperCase()}`}
       badgeText="Bool Output"
       minWidth={290}
       minHeight={210}
@@ -43,13 +45,17 @@ export const LogicNode = memo(({ id, data, selected, height }: NodeProps) => {
       <div className="space-y-3">
         {/* Logic Mode Select */}
         <div>
-          <label className="text-xs text-slate-200 font-bold mb-1 block">Logic & Gate Mode</label>
+          <label className="text-xs text-slate-200 font-bold mb-1 block">Logic & Trigger Mode</label>
           <div className="relative">
             <select
               value={gateType}
               onChange={(e) => updateNodeData(id, { gateType: e.target.value })}
               className="w-full glass-input rounded-2xl px-3.5 py-2 text-xs text-white font-bold focus:ring-2 focus:ring-amber-400 appearance-none cursor-pointer pr-9 bg-[#090d16]"
             >
+              <optgroup label="State Change Detectors" className="bg-slate-900 text-amber-300 font-bold">
+                <option value="on_state_change" className="bg-slate-900 text-white font-semibold">⚡ On State Change (Pulse Trigger)</option>
+              </optgroup>
+
               <optgroup label="Boolean Logic Gates" className="bg-slate-900 text-amber-300 font-bold">
                 <option value="and" className="bg-slate-900 text-white font-semibold">AND (A & B)</option>
                 <option value="or" className="bg-slate-900 text-white font-semibold">OR (A | B)</option>
@@ -78,6 +84,39 @@ export const LogicNode = memo(({ id, data, selected, height }: NodeProps) => {
             <ChevronDown className="w-4 h-4 text-amber-400 absolute right-3 top-3 pointer-events-none" />
           </div>
         </div>
+
+        {/* On State Change Controls */}
+        {gateType === 'on_state_change' && (
+          <div className="bg-[#090d16] rounded-2xl p-3 border border-white/15 space-y-2.5">
+            <div>
+              <label className="text-[11px] text-amber-300 font-bold mb-1 block">Transition Edge Direction</label>
+              <select
+                value={edgeMode}
+                onChange={(e) => updateNodeData(id, { edgeMode: e.target.value })}
+                className="w-full glass-input rounded-xl px-2.5 py-1.5 text-xs text-white font-bold bg-[#090d16]"
+              >
+                <option value="any" className="bg-slate-900 text-white">Any Delta Change (Δ val ≠ 0)</option>
+                <option value="rising" className="bg-slate-900 text-white">Rising Edge (OFF → ON / 0 → 1)</option>
+                <option value="falling" className="bg-slate-900 text-white">Falling Edge (ON → OFF / 1 → 0)</option>
+              </select>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] text-slate-300 font-bold">Output Pulse Duration</span>
+              <select
+                value={pulseDuration}
+                onChange={(e) => updateNodeData(id, { pulseDuration: parseFloat(e.target.value) })}
+                className="bg-transparent text-xs font-bold text-amber-300 focus:outline-none cursor-pointer"
+              >
+                <option value={0.016} className="bg-slate-900 text-white">Single Frame (16ms)</option>
+                <option value={0.1} className="bg-slate-900 text-white">100 ms Pulse</option>
+                <option value={0.25} className="bg-slate-900 text-white">250 ms Pulse</option>
+                <option value={0.5} className="bg-slate-900 text-white">500 ms Pulse</option>
+                <option value={1.0} className="bg-slate-900 text-white">1.0 sec Hold</option>
+              </select>
+            </div>
+          </div>
+        )}
 
         {/* Threshold Limit Control */}
         {gateType === 'threshold' && (
