@@ -47,6 +47,18 @@ export abstract class VRCModule {
 
 // Built-in VRC-Flow Math & Signal Helpers
 export const VRCMath = {
+  // Basic Arithmetic
+  add: (a: number, b: number): number => a + b,
+  sub: (a: number, b: number): number => a - b,
+  mul: (a: number, b: number): number => a * b,
+  div: (a: number, b: number): number => (b === 0 ? 0 : a / b),
+  mod: (a: number, b: number): number => (b === 0 ? 0 : a % b),
+  pow: (a: number, b: number): number => Math.pow(a, b),
+  min: (a: number, b: number): number => Math.min(a, b),
+  max: (a: number, b: number): number => Math.max(a, b),
+  abs: (val: number): number => Math.abs(val),
+
+  // Advanced Signal Processing
   clamp: (val: number, min: number, max: number): number => Math.max(min, Math.min(max, val)),
   lerp: (a: number, b: number, t: number): number => a + (b - a) * Math.max(0, Math.min(1, t)),
   smoothStep: (min: number, max: number, value: number): number => {
@@ -54,4 +66,10 @@ export const VRCMath = {
     return x * x * (3 - 2 * x);
   },
   deadzone: (val: number, threshold: number): number => (Math.abs(val) < threshold ? 0 : val),
+  remap: (val: number, inMin: number, inMax: number, outMin: number, outMax: number): number => {
+    if (inMax === inMin) return outMin;
+    const norm = (val - inMin) / (inMax - inMin);
+    return outMin + norm * (outMax - outMin);
+  },
+  quantize: (val: number, step: number): number => (step <= 0 ? val : Math.round(val / step) * step),
 };

@@ -26,6 +26,69 @@ export const ModuleLibraryDrawer: React.FC<ModuleLibraryDrawerProps> = ({ isOpen
     },
     {
       type: 'mathNode',
+      label: 'Add Node (A + B)',
+      description: 'Adds input A and input B together',
+      category: 'Math',
+      icon: Calculator,
+      color: 'indigo',
+      data: { label: 'Add (A + B)', operation: 'add', operandB: 1.0 }
+    },
+    {
+      type: 'mathNode',
+      label: 'Subtract Node (A - B)',
+      description: 'Subtracts input B from input A',
+      category: 'Math',
+      icon: Calculator,
+      color: 'indigo',
+      data: { label: 'Subtract (A - B)', operation: 'subtract', operandB: 1.0 }
+    },
+    {
+      type: 'mathNode',
+      label: 'Multiply Node (A × B)',
+      description: 'Multiplies input A by input B scale factor',
+      category: 'Math',
+      icon: Calculator,
+      color: 'indigo',
+      data: { label: 'Multiply (A × B)', operation: 'multiply', operandB: 2.0 }
+    },
+    {
+      type: 'mathNode',
+      label: 'Divide Node (A / B)',
+      description: 'Divides input A by input B',
+      category: 'Math',
+      icon: Calculator,
+      color: 'indigo',
+      data: { label: 'Divide (A / B)', operation: 'divide', operandB: 2.0 }
+    },
+    {
+      type: 'mathNode',
+      label: 'Modulo Node (A % B)',
+      description: 'Computes remainder of input A divided by B',
+      category: 'Math',
+      icon: Calculator,
+      color: 'indigo',
+      data: { label: 'Modulo (A % B)', operation: 'modulo', operandB: 1.0 }
+    },
+    {
+      type: 'mathNode',
+      label: 'Power Node (A ^ B)',
+      description: 'Raises input A to the power of B',
+      category: 'Math',
+      icon: Calculator,
+      color: 'indigo',
+      data: { label: 'Power (A ^ B)', operation: 'power', operandB: 2.0 }
+    },
+    {
+      type: 'mathNode',
+      label: 'Min / Max Gate',
+      description: 'Finds minimum or maximum between two input signals',
+      category: 'Math',
+      icon: Calculator,
+      color: 'indigo',
+      data: { label: 'Min / Max Gate', operation: 'min', operandB: 1.0 }
+    },
+    {
+      type: 'mathNode',
       label: 'Range Remap',
       description: 'Linearly maps input values from range [InMin, InMax] to [OutMin, OutMax]',
       category: 'Math',

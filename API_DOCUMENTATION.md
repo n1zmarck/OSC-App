@@ -1,6 +1,6 @@
-# VRC-Flow Standard Library SDK & Hooks Reference Guide
+# VRC-Flow Standard Library SDK & Math Modules Reference Guide
 
-Welcome to the **VRC-Flow Standard Library SDK** documentation. This guide details the lifecycle hooks, context APIs, signal emitters, math utilities, and export specifications available for creating custom signal processing modules in **TypeScript** (`@vrc-flow/sdk`) and **Rust** (`vrc_flow_core`).
+Welcome to the **VRC-Flow Standard Library SDK** documentation. This guide details the lifecycle hooks, context APIs, signal emitters, math utilities, and standard module presets available for creating custom signal processing modules in **TypeScript** (`@vrc-flow/sdk`) and **Rust** (`vrc_flow_core`).
 
 ---
 
@@ -10,7 +10,7 @@ VRC-Flow provides a type-safe standard library for custom signal nodes. Authors 
 
 ### File Structure & Imports
 - **TypeScript**: `import { VRCModule, ModuleContext, VRCMath } from '@vrc-flow/sdk'`
-- **Rust (WASM Core)**: `use vrc_flow_core::{VRCModule, ModuleContext, SignalValue};`
+- **Rust (WASM Core)**: `use vrc_flow_core::{VRCModule, ModuleContext, SignalValue, VRCMath};`
 
 ---
 
@@ -89,23 +89,28 @@ The `ModuleContext` object provides full access to incoming signals, UI paramete
 
 ---
 
-## 🧮 4. VRCMath Utility Library
+## 🧮 4. Basic Math Operations & VRCMath Helpers
 
-The standard library includes optimized math functions tailored for real-time OSC signal processing:
+VRC-Flow includes built-in basic math nodes and `VRCMath` standard library helpers:
 
-### Functions:
+### Basic Arithmetic Methods:
+- **`VRCMath.add(a, b)`**: Addition ($A + B$)
+- **`VRCMath.sub(a, b)`**: Subtraction ($A - B$)
+- **`VRCMath.mul(a, b)`**: Multiplication ($A \times B$)
+- **`VRCMath.div(a, b)`**: Division ($A / B$, safe divide returning `0.0` when $B = 0$)
+- **`VRCMath.mod(a, b)`**: Modulo ($A \pmod B$)
+- **`VRCMath.pow(a, b)`**: Exponentiation ($A^B$)
+- **`VRCMath.min(a, b)`**: Minimum value ($\min(A, B)$)
+- **`VRCMath.max(a, b)`**: Maximum value ($\max(A, B)$)
+- **`VRCMath.abs(val)`**: Absolute value ($|A|$)
 
-1. **`VRCMath.clamp(val: number, min: number, max: number): number`**
-   - Restricts `val` between lower limit `min` and upper limit `max`.
-
-2. **`VRCMath.lerp(a: number, b: number, t: number): number`**
-   - Performs linear interpolation between `a` and `b` by factor `t` ($0.0 \le t \le 1.0$).
-
-3. **`VRCMath.smoothStep(min: number, max: number, val: number): number`**
-   - Computes smooth Hermite interpolation between `0.0` and `1.0` for threshold transitions.
-
-4. **`VRCMath.deadzone(val: number, threshold: number): number`**
-   - Returns `0.0` if $|val| < threshold$, preventing joystick/sensor jitter around origin.
+### Signal Processing Utilities:
+- **`VRCMath.clamp(val, min, max)`**: Clamps `val` within $[min \dots max]$.
+- **`VRCMath.lerp(a, b, t)`**: Linear interpolation between $a$ and $b$ by factor $t$.
+- **`VRCMath.smoothStep(min, max, val)`**: Smooth Hermite interpolation between $0.0$ and $1.0$.
+- **`VRCMath.deadzone(val, threshold)`**: Noise gate returning `0.0` if $|val| < threshold$.
+- **`VRCMath.remap(val, inMin, inMax, outMin, outMax)`**: Linear range remapping $[In \rightarrow Out]$.
+- **`VRCMath.quantize(val, step)`**: Step-snapping / quantizing continuously varying signals.
 
 ---
 
@@ -186,7 +191,22 @@ impl VRCModule for HeartRateFilter {
 
 ---
 
-## 📦 6. Exporting & Sharing (`.vrcm`)
+## 🚀 6. Recommended Standard Modules
+
+Below are essential pre-built modules for VRChat avatar control pipelines:
+
+1. **Viseme & Gesture Decoder Module**:
+   - Maps integer gesture states ($0 \dots 7$) to individual VRChat expression shapekeys.
+2. **Exponential Damping Filter**:
+   - Smooths jerky tracker or VR controller inputs with adjustable time constant.
+3. **Hysteresis Threshold Trigger**:
+   - Dual-threshold gate preventing rapid ON/OFF flickering near cut-off boundaries.
+4. **AudioLink Frequency Splitter**:
+   - Separates AudioLink bass, low-mid, high-mid, and treble pulses into distinct parameter triggers.
+
+---
+
+## 📦 7. Exporting & Sharing (`.vrcm`)
 
 Custom modules can be exported into single-file `.vrcm` JSON packages directly from VRC-Flow:
 
