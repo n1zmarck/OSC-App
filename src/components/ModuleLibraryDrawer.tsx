@@ -282,7 +282,7 @@ export const ModuleLibraryDrawer: React.FC<ModuleLibraryDrawerProps> = ({ isOpen
                       const IconComponent = node.icon;
                       return (
                         <div
-                          key={node.type}
+                          key={node.label}
                           onClick={() => handleAddStandardNode(node)}
                           className="glass-node rounded-2xl p-3.5 flex items-center justify-between group cursor-pointer transition-all hover:translate-x-1"
                         >
