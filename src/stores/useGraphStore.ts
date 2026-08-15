@@ -110,6 +110,8 @@ export interface GraphStoreState {
 
   // Custom Modules State
   customModules: CustomMacroModule[];
+  userCodeModules: any[];
+  addUserCodeModule: (pkg: any) => void;
 
   // Live Telemetry Values
   telemetryValues: Record<string, any>;
@@ -295,6 +297,7 @@ export const useGraphStore = create<GraphStoreState>((set, get) => ({
   ],
 
   customModules: [],
+  userCodeModules: [],
   telemetryValues: {},
 
   onNodesChange: (changes) => {
@@ -350,4 +353,5 @@ export const useGraphStore = create<GraphStoreState>((set, get) => ({
     edges,
   }),
   addCustomModule: (module) => set({ customModules: [...get().customModules, module] }),
+  addUserCodeModule: (pkg) => set({ userCodeModules: [...(get().userCodeModules || []), pkg] }),
 }));

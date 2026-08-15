@@ -6,12 +6,14 @@ import { GlassButton } from './Common/GlassButton';
 interface HeaderBarProps {
   onOpenLibrary: () => void;
   onCreateMacroModal: () => void;
+  onOpenImportModal: () => void;
   onOpenAppearance: () => void;
 }
 
 export const HeaderBar: React.FC<HeaderBarProps> = ({
   onOpenLibrary,
   onCreateMacroModal,
+  onOpenImportModal,
   onOpenAppearance,
 }) => {
   const {
@@ -93,6 +95,16 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
           onClick={onCreateMacroModal}
         >
           Create Custom Module
+        </GlassButton>
+
+        {/* Import .vrcm Module Package Trigger */}
+        <GlassButton
+          variant="secondary"
+          colorRole="sky"
+          icon={FolderOpen}
+          onClick={onOpenImportModal}
+        >
+          Import Module
         </GlassButton>
 
         {/* Engine Live Status Toggle */}

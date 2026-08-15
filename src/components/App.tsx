@@ -4,12 +4,14 @@ import { Canvas } from './Canvas';
 import { InspectorPanel } from './InspectorPanel';
 import { ModuleLibraryDrawer } from './ModuleLibraryDrawer';
 import { CustomModuleModal } from './CustomModuleModal';
+import { ImportModuleModal } from './ImportModuleModal';
 import { AppearanceModal } from './AppearanceModal';
 import { useGraphStore } from '../stores/useGraphStore';
 
 export const App: React.FC = () => {
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [isMacroModalOpen, setIsMacroModalOpen] = useState(false);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [isAppearanceOpen, setIsAppearanceOpen] = useState(false);
 
   const currentTheme = useGraphStore((s) => s.currentTheme);
@@ -56,6 +58,7 @@ export const App: React.FC = () => {
       <HeaderBar
         onOpenLibrary={() => setIsLibraryOpen(true)}
         onCreateMacroModal={() => setIsMacroModalOpen(true)}
+        onOpenImportModal={() => setIsImportModalOpen(true)}
         onOpenAppearance={() => setIsAppearanceOpen(true)}
       />
 
@@ -75,6 +78,12 @@ export const App: React.FC = () => {
       <CustomModuleModal
         isOpen={isMacroModalOpen}
         onClose={() => setIsMacroModalOpen(false)}
+      />
+
+      {/* Modal to Import VRCm Module Packages */}
+      <ImportModuleModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
       />
 
       {/* Modal for Theme & Appearance Settings */}
