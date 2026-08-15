@@ -106,6 +106,69 @@ export const ModuleLibraryDrawer: React.FC<ModuleLibraryDrawerProps> = ({ isOpen
       data: { label: 'Custom Formula', formula: '(in1 * 0.8) + (sin(time) * 0.2)', variables: ['in1'] }
     },
     {
+      type: 'expressionNode',
+      label: 'Eye Damping & Smoothing',
+      description: 'Smooths raw eye tracking gaze vectors with exponential damping',
+      category: 'Tracking & Face',
+      icon: Sparkles,
+      color: 'purple',
+      data: { label: 'Eye Damping', formula: 'lerp(0, eye_in, deltaTime * 12.0)', variables: ['eye_in'] }
+    },
+    {
+      type: 'logicNode',
+      label: 'Viseme & Gesture Decoder',
+      description: 'Decodes VRChat 15-viseme integer parameters into shapekey triggers',
+      category: 'Tracking & Face',
+      icon: GitBranch,
+      color: 'amber',
+      data: { label: 'Viseme Decoder', gateType: 'threshold', threshold: 0.2 }
+    },
+    {
+      type: 'expressionNode',
+      label: 'Heart Rate Zone Color Mapper',
+      description: 'Maps Heart Rate BPM to avatar emissive shader color ramps',
+      category: 'Biometrics & Health',
+      icon: Calculator,
+      color: 'indigo',
+      data: { label: 'HR Zone Mapper', formula: 'clamp((hr_bpm - 60) / 100, 0.0, 1.0)', variables: ['hr_bpm'] }
+    },
+    {
+      type: 'expressionNode',
+      label: 'Heartbeat Pulse Wave Generator',
+      description: 'Synthesizes ECG heartbeat pulse waveforms for lilToon AudioLink',
+      category: 'Biometrics & Health',
+      icon: Calculator,
+      color: 'indigo',
+      data: { label: 'ECG Pulse Wave', formula: 'sin(time * (bpm / 60) * 6.283)', variables: ['bpm'] }
+    },
+    {
+      type: 'expressionNode',
+      label: 'AudioLink Bass & Treble Gate',
+      description: 'Extracts Bass, Low-Mid, and Treble spectrum pulses from AudioLink',
+      category: 'AudioLink',
+      icon: Radio,
+      color: 'sky',
+      data: { label: 'AudioLink Gate', formula: 'audioLinkPulse > 0.6 ? 1.0 : 0.0', variables: ['audioLinkPulse'] }
+    },
+    {
+      type: 'expressionNode',
+      label: 'MatCap Rainbow Hue Animator',
+      description: 'Continuously rotates lilToon MatCap hueShift for animated chrome surfaces',
+      category: 'Shaders & lilToon',
+      icon: Sparkles,
+      color: 'purple',
+      data: { label: 'MatCap Hue Animator', formula: '(time * 45) % 360', variables: [] }
+    },
+    {
+      type: 'expressionNode',
+      label: 'Rim Light Pulse Modulator',
+      description: 'Modulates lilToon rimFresnelPower in response to audio or avatar parameters',
+      category: 'Shaders & lilToon',
+      icon: Sparkles,
+      color: 'purple',
+      data: { label: 'Rim Light Pulse', formula: '1.5 + (sin(time * 4) * 0.8)', variables: [] }
+    },
+    {
       type: 'logicNode',
       label: 'Logic & Threshold Gate',
       description: 'Converts float triggers into boolean states or logic AND/OR decisions',
@@ -147,7 +210,7 @@ export const ModuleLibraryDrawer: React.FC<ModuleLibraryDrawerProps> = ({ isOpen
     onClose();
   };
 
-  const categories = ['All', 'IO', 'Math', 'Logic', 'Custom', 'User Modules'];
+  const categories = ['All', 'IO', 'Math', 'Logic', 'Tracking & Face', 'Biometrics & Health', 'AudioLink', 'Shaders & lilToon', 'Custom', 'User Modules'];
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-black/40 backdrop-blur-md transition-opacity">
