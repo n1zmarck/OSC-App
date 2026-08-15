@@ -170,12 +170,66 @@ export const ModuleLibraryDrawer: React.FC<ModuleLibraryDrawerProps> = ({ isOpen
     },
     {
       type: 'logicNode',
-      label: 'Logic & Threshold Gate',
-      description: 'Converts float triggers into boolean states or logic AND/OR decisions',
+      label: 'AND Logic Gate (A & B)',
+      description: 'Outputs true only when both input A and input B are true',
       category: 'Logic',
       icon: GitBranch,
       color: 'amber',
-      data: { label: 'Logic Gate', gateType: 'threshold', threshold: 0.5 }
+      data: { label: 'AND Gate', gateType: 'and' }
+    },
+    {
+      type: 'logicNode',
+      label: 'OR Logic Gate (A | B)',
+      description: 'Outputs true when either input A or input B is true',
+      category: 'Logic',
+      icon: GitBranch,
+      color: 'amber',
+      data: { label: 'OR Gate', gateType: 'or' }
+    },
+    {
+      type: 'logicNode',
+      label: 'XOR Logic Gate (A ^ B)',
+      description: 'Outputs true when exactly one input is true',
+      category: 'Logic',
+      icon: GitBranch,
+      color: 'amber',
+      data: { label: 'XOR Gate', gateType: 'xor' }
+    },
+    {
+      type: 'logicNode',
+      label: 'NOT Gate (!A Inverter)',
+      description: 'Inverts boolean signal state (true -> false, false -> true)',
+      category: 'Logic',
+      icon: GitBranch,
+      color: 'amber',
+      data: { label: 'NOT Inverter', gateType: 'not' }
+    },
+    {
+      type: 'logicNode',
+      label: 'Greater Than Comparator (A > B)',
+      description: 'Outputs true when signal A exceeds signal B or threshold constant',
+      category: 'Logic',
+      icon: GitBranch,
+      color: 'amber',
+      data: { label: 'Greater Than (A > B)', gateType: 'greater', operandB: 0.5 }
+    },
+    {
+      type: 'logicNode',
+      label: 'SR Flip-Flop Toggle Latch',
+      description: 'Latches state on Set input A pulse, resets on Reset input B pulse',
+      category: 'Logic',
+      icon: GitBranch,
+      color: 'amber',
+      data: { label: 'SR Flip-Flop Latch', gateType: 'toggle' }
+    },
+    {
+      type: 'logicNode',
+      label: 'Schmitt Hysteresis Trigger',
+      description: 'Dual-threshold noise gate preventing rapid ON/OFF flickering near boundaries',
+      category: 'Logic',
+      icon: GitBranch,
+      color: 'amber',
+      data: { label: 'Hysteresis Trigger', gateType: 'hysteresis', threshold: 0.7, lowerThreshold: 0.3 }
     },
     {
       type: 'outputNode',
