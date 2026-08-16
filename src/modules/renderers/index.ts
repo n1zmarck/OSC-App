@@ -1,3 +1,4 @@
+import { DynamicModuleNode } from './DynamicModuleNode';
 import { InputNode } from './InputNode';
 import { OutputNode } from './OutputNode';
 import { MathNode } from './MathNode';
@@ -6,7 +7,7 @@ import { ExpressionNode } from './ExpressionNode';
 import { MacroNode } from './MacroNode';
 
 export { BaseNodeContainer } from './BaseNodeContainer';
-export { InputNode, OutputNode, MathNode, LogicNode, ExpressionNode, MacroNode };
+export { InputNode, OutputNode, MathNode, LogicNode, ExpressionNode, MacroNode, DynamicModuleNode };
 
 export const nodeTypes = {
   inputNode: InputNode,
@@ -15,4 +16,6 @@ export const nodeTypes = {
   logicNode: LogicNode,
   expressionNode: ExpressionNode,
   macroNode: MacroNode,
+  dynamicNode: DynamicModuleNode,
+  universalNode: DynamicModuleNode,
 };
